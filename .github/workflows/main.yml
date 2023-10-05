@@ -10,6 +10,12 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2.3.2
 
+      - name: Install Composer Dependencies
+        uses: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Copy .env.example to .env
+        uses: php -r "file_exists('.env') || copy('.env.example','.env');"
+
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
